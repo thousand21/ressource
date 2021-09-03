@@ -16,7 +16,7 @@ class PhotoController extends Controller
     {
         //
         $photo=Photo::all();
-        return view('photos.all',compact('photo'));
+        return view('partials.tableau',compact('photo'));
     }
 
     /**
@@ -27,7 +27,7 @@ class PhotoController extends Controller
     public function create()
     {
         //
-        return view('photos.create');
+        return view('pages.create');
     }
 
     /**
@@ -39,9 +39,9 @@ class PhotoController extends Controller
     public function store(Request $request)
     {
         //
-        $photo=new Photo;
+        $photo = new Photo;
         $photo->url=$request->url;
-        $photo->name=$request->name;
+        $photo->nom=$request->nom;
         $photo->description=$request->description;
         $photo->save();
 
@@ -58,7 +58,7 @@ class PhotoController extends Controller
     public function show(Photo $photo)
     {
         //
-        return view('photos.show',compact('photo'));
+        return view('pages.show',compact('photo'));
     }
 
     /**
@@ -68,9 +68,8 @@ class PhotoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Photo $photo)
-    {
-        //
-        return view('photos.edit',compact('photo'));
+    {  
+        return view('pages.edit',compact('photo'));
     }
 
     /**
@@ -84,7 +83,7 @@ class PhotoController extends Controller
     {
         //
         $photo->url=$request->url;
-        $photo->name=$request->name;
+        $photo->nom=$request->nom;
         $photo->description=$request->description;
         $photo->save();
 
@@ -101,6 +100,6 @@ class PhotoController extends Controller
     {
         //
         $photo->delete();
-        return redirect()->route('photos.index');
+        return redirect()->route('photos.destroy');
     }
 }

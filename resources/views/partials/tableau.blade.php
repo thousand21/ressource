@@ -1,3 +1,15 @@
+@extends('template.index')
+@section('content')
+
+
+<div class="container d-flex justify-content-center mt-5">
+
+  <h2>Photos</h2>
+  <button class="bg-success" ><a href="{{route("photos.create")}}"> Create</a></button>
+  
+</div>
+  
+
 <table class="table container">
   <thead>
     <tr>
@@ -9,27 +21,28 @@
     </tr>
   </thead>
   <tbody>
-      
+    
+      @foreach($photo as $photos)
     <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-      <td><button class="bg-primary">Edit</button><button class="bg-warning">Show</button><button class="bg-danger">Delete</button ></td>
+      <th scope="row">{{$photos->id}}</th>
+      <td>{{$photos->url}}</td>
+      <td>{{$photos->nom}}</td>
+      <td>{{$photos->description}}</td>
+      <td>
+        <div class="d-flex">
+            <form action="{{route('photos.destroy', $photos->id)}}" method="post">
+                @csrf
+                @method('DELETE')
+                <button class=" btn rounded m-3 bg-danger" type="submit">Delete</button>
+            </form>
+
+            <button class="btn rounded m-3 bg-warning"><a class="text-decoration-none" href="{{route('photos.show', $photos->id)}}">Show</a></button>
+
+            <button class=" btn rounded m-3 bg-success"><a class="text-decoration-none" href="{{route('photos.edit',$photos->id)}}">Edit</a></button>
+        </div>
+    </td>
     </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-      <td><button class="bg-primary">Edit</button><button class="bg-warning">Show</button><button class="bg-danger">Delete</button ></td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-      <td><button class="bg-primary light">Edit</button><button class="bg-warning light">Show</button><button class="bg-danger light">Delete</button ></td>
-      
-    </tr>
+    @endforeach
   </tbody>
 </table>
+@endsection

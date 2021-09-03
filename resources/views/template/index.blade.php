@@ -16,9 +16,10 @@
     <link href="{{asset('css/colors.css')}}" rel="stylesheet">
 </head>
 <body>
+   
     
-@include('partials.titre')
-@include('partials.tableau')
+@yield('content')
+
 
 
 
